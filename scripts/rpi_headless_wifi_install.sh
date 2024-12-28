@@ -15,7 +15,7 @@ check_os_version () {
     if [ -f /etc/os-release ]; then
         _version=$(grep -oP 'VERSION="\K[^"]+' /etc/os-release)
     fi
-    if [ "$_version" != "11 (bullseye)" ]; then
+    if [ "$_version" != "11 (bullseye)" ] && [ "$_version" != "12 (bookworm)" ]; then
         echo "ERROR: Distribution not based on Raspbian 11 (bullyeye)."
         exit 1
     fi
