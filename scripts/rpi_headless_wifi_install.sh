@@ -78,7 +78,7 @@ TOPDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 TOPDIR+=/..
 cd $TOPDIR
 
-if [ "$_version" != "12 (bookworm)" ]; then
+if [ "$VERSION" != "12 (bookworm)" ]; then
     apt-get install -y libglib2.0-dev python-dbus-dev
 fi;
 # Installing pip3 and venv..  Raspberry lite does not have them
