@@ -114,7 +114,7 @@ if [[ "$OSTYPE" == "linux"* ]]; then
 
     # Install the python modules our app uses into our venv
     echo "Installing python modules..."
-    pip3 install -r $TOPDIR/config/requirements.txt
+    pip3 install -r $TOPDIR/config/requirements.txt --trusted-host www.piwheels.org 
 
     # Deactivate the venv
     deactivate
