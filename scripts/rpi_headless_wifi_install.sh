@@ -15,10 +15,11 @@ check_os_version () {
     if [ -f /etc/os-release ]; then
         _version=$(grep -oP 'VERSION="\K[^"]+' /etc/os-release)
     fi
-    if [ "$_version" != "11 (bullseye)" ]; then
+    if [ "$_version" != "11 (bullseye)" ] && [ "$_version" != "12 (bookworm)" ]; then
         echo "ERROR: Distribution not based on Raspbian 11 (bullyeye)."
         exit 1
     fi
+    return _version
 }
 
 # install manager enables the Network Manager but does not start until reboot.   
@@ -57,8 +58,8 @@ install_network_manager () {
     #apt-get clean
 }
 
-# This only works on Linux raspberry 11 (bullseye) 
-check_os_version
+# check if we're on debian 11 or 12, all other are not accepted.
+VERSION=check_os_version
 
 # Confirm the user wants to install...
 #read -r -p "Do you want to install? [y/N]: " response
@@ -77,6 +78,9 @@ TOPDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 TOPDIR+=/..
 cd $TOPDIR
 
+if [ "$_version" != "12 (bookworm)" ]; then
+    apt-get install -y libglib2.0-dev python-dbus-dev
+fi;
 # Installing pip3 and venv..  Raspberry lite does not have them
 echo "Installing python3-pip ... pip3 required"
 apt-get install -y python3-pip
