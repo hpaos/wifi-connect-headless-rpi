@@ -1,6 +1,6 @@
 # Our main wifi-connect application, which is based around an HTTP server.
 
-import os, getopt, sys, json, atexit
+import os, getopt, sys, json, atexit, subprocess
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from urllib.parse import parse_qs
 from io import BytesIO
@@ -202,6 +202,14 @@ def main(address, port, ui_path, rcode, delete_connections):
     # Check if we are already connected, if so we are done.
     if netman.have_active_internet_connection():
         print('Already connected to the internet, nothing to do, exiting.')
+        script_name = os.getenv('SHELL_SCRIPT_NAME')
+        if script_name:
+            try:
+                subprocess.run([script_name], check=True)
+            except subprocess.CalledProcessError as e:
+                print(f"Error occurred while executing the script: {e}")
+        else:
+            print("Environment variable 'SHELL_SCRIPT_NAME' is not set.")
         sys.exit()
 
     # Get list of available AP from net man.  
