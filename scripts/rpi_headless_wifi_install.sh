@@ -19,7 +19,7 @@ check_os_version () {
         echo "ERROR: Distribution not based on Raspbian 11 (bullyeye)."
         exit 1
     fi
-    return $_version
+    echo $_version
 }
 
 # install manager enables the Network Manager but does not start until reboot.   
@@ -59,7 +59,7 @@ install_network_manager () {
 }
 
 # check if we're on debian 11 or 12, all other are not accepted.
-VERSION=check_os_version
+VERSION=$(check_os_version)
 
 # Confirm the user wants to install...
 #read -r -p "Do you want to install? [y/N]: " response
