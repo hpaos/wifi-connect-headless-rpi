@@ -84,6 +84,7 @@ fi;
 # Installing pip3 and venv..  Raspberry lite does not have them
 echo "Installing python3-pip ... pip3 required"
 apt-get install -y python3-pip
+rm /etc/pip.conf
 echo "Installing python3-venv ... vend required" 
 apt-get install -y python3-venv
 
