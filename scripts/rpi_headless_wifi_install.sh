@@ -77,7 +77,7 @@ TOPDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # The top of our source tree is the parent of this scripts dir
 TOPDIR+=/..
 cd $TOPDIR
-
+echo $VERSION
 if [ "$VERSION" == "12 (bookworm)" ]; then
     apt-get install -y libglib2.0-dev python-dbus-dev libdbus-1-dev
 fi;
