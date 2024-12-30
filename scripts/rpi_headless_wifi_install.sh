@@ -79,7 +79,7 @@ TOPDIR+=/..
 cd $TOPDIR
 
 if [ "$VERSION" == "12 (bookworm)" ]; then
-    apt-get install -y libglib2.0-dev python-dbus-dev
+    apt-get install -y libglib2.0-dev python-dbus-dev libdbus-1-dev
 fi;
 # Installing pip3 and venv..  Raspberry lite does not have them
 echo "Installing python3-pip ... pip3 required"
