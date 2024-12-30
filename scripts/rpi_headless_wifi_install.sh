@@ -19,7 +19,7 @@ check_os_version () {
         echo "ERROR: Distribution not based on Raspbian 11 (bullyeye)."
         exit 1
     fi
-    return _version
+    return $_version
 }
 
 # install manager enables the Network Manager but does not start until reboot.   
