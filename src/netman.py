@@ -5,6 +5,7 @@
 # over (the module documentation is scant).
 
 import NetworkManager
+from dotenv import load_dotenv
 import uuid, os, sys, time, socket
 
 # This is needed to work with NetworkManager 1.30.6 and python-networkmanager 2.2      
@@ -157,7 +158,8 @@ def get_list_of_access_points():
 #------------------------------------------------------------------------------
 # Get hotspot SSID name.
 def get_hotspot_SSID():
-    return 'Rpi-'+os.uname()[1]
+    load_dotenv()
+    return os.getenv('HOTSPOT_SSID', 'Default-SSID')
 
 
 #------------------------------------------------------------------------------
