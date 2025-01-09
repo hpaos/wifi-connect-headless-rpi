@@ -279,6 +279,11 @@ def connect_to_AP(conn_type=None, conn_name=GENERIC_CONNECTION_NAME, \
 
         #print(f"new connection {conn_dict} type={conn_str}")
 
+        connections = NetworkManager.Settings.ListConnections()
+        for connection in connections:
+            if connection.GetSettings()["connection"]["id"] == conn_name:
+                print(f"connect_to_AP() Warning: Connection {conn_name} already exists, deleting it first.")
+                connection.Delete()
         NetworkManager.Settings.AddConnection(conn_dict)
         print(f"Added connection {conn_name} of type {conn_str}")
 
