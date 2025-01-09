@@ -292,8 +292,8 @@ def connect_to_AP(conn_type=None, conn_name=GENERIC_CONNECTION_NAME, \
 
         for dev in devices:
            for devcon in devices.AvailableConnections:
-            if devcon.uuid == conn.uuid:
-                break
+              if devcon.uuid == conn.uuid:
+                 break
         else:
             print(f"connect_to_AP() Error: No suitable and available device found for {conn_name} ({conn.uuid})")
             return False
