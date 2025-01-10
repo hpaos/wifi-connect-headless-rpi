@@ -279,6 +279,11 @@ def connect_to_AP(conn_type=None, conn_name=GENERIC_CONNECTION_NAME, \
 
         #print(f"new connection {conn_dict} type={conn_str}")
 
+        connections = NetworkManager.Settings.ListConnections()
+        for connection in connections:
+            if connection.GetSettings()["connection"]["id"] == conn_name:
+                print(f"connect_to_AP() Warning: Connection {conn_name} already exists, deleting it first.")
+                connection.Delete()
         NetworkManager.Settings.AddConnection(conn_dict)
         print(f"Added connection {conn_name} of type {conn_str}")
 
@@ -287,16 +292,15 @@ def connect_to_AP(conn_type=None, conn_name=GENERIC_CONNECTION_NAME, \
         connections = dict([(x.GetSettings()['connection']['id'], x) for x in connections])
         conn = connections[conn_name]
 
-        # Find a suitable device
-        ctype = conn.GetSettings()['connection']['type']
-        dtype = {'802-11-wireless': NetworkManager.NM_DEVICE_TYPE_WIFI}.get(ctype,ctype)
+        # Find the device on which the connection was created
         devices = NetworkManager.NetworkManager.GetDevices()
 
         for dev in devices:
-            if dev.DeviceType == dtype:
-                break
+            for devcon in devices.AvailableConnections:
+                if devcon.uuid == conn.uuid:
+                    break
         else:
-            print(f"connect_to_AP() Error: No suitable and available {ctype} device found.")
+            print(f"connect_to_AP() Error: No suitable and available device found for {conn_name} ({conn.uuid})")
             return False
 
         # And connect
