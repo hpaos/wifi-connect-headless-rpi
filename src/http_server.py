@@ -178,7 +178,9 @@ def RequestHandlerClassFactory(address, ssids, rcode):
 
             # Handle success or failure of the new connection
             if success:
-                print(f'Connected!  Exiting app.')
+                print(f'Connected!')
+                run_completion_command()
+                print('Exiting the app.')
                 sys.exit()
             else:
                 print(f'Connection failed, restarting the hotspot.')
@@ -204,14 +206,7 @@ def main(address, port, ui_path, rcode, delete_connections):
     load_dotenv()
     if netman.have_active_internet_connection():
         print('Already connected to the internet, nothing to do, exiting.')
-        script_name = os.getenv('COMPLETION_COMMAND')
-        if script_name:
-            try:
-                subprocess.run([script_name], check=True)
-            except subprocess.CalledProcessError as e:
-                print(f"Error occurred while executing the script: {e}")
-        else:
-            print("Environment variable 'COMPLETION_COMMAND' is not set.")
+        run_completion_command()
         sys.exit()
 
     # Get list of available AP from net man.  
@@ -253,6 +248,17 @@ def main(address, port, ui_path, rcode, delete_connections):
         dnsmasq.stop()
         netman.stop_hotspot()
         httpd.server_close()
+
+def run_completion_command():
+    script_name = os.getenv('COMPLETION_COMMAND')
+    if script_name:
+        try:
+            print(f'Running completion command: {os.getenv("COMPLETION_COMMAND")}')
+            subprocess.run([script_name], check=True)
+        except subprocess.CalledProcessError as e:
+            print(f"Error occurred while executing the script: {e}")
+    else:
+        print("Environment variable 'COMPLETION_COMMAND' is not set.")
 
 
 #------------------------------------------------------------------------------
