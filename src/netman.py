@@ -296,10 +296,16 @@ def connect_to_AP(conn_type=None, conn_name=GENERIC_CONNECTION_NAME, \
         devices = NetworkManager.NetworkManager.GetDevices()
 
         for dev in devices:
-            for devcon in devices.AvailableConnections:
-                if devcon.uuid == conn.uuid:
+            if dev.DeviceType == NetworkManager.NM_DEVICE_TYPE_WIFI:
+                dev_available = False
+                for devcon in dev.AvailableConnections:
+                    if devcon.uuid == conn.uuid:
+                        dev_available = True
+                        break
+                if dev_available:
                     break
-        else:
+
+        if not dev_available:
             print(f"connect_to_AP() Error: No suitable and available device found for {conn_name} ({conn.uuid})")
             return False
 
