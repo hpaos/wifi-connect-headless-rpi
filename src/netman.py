@@ -296,7 +296,7 @@ def connect_to_AP(conn_type=None, conn_name=GENERIC_CONNECTION_NAME, \
         devices = NetworkManager.NetworkManager.GetDevices()
 
         for dev in devices:
-            if dev.DeviceType == NetworkManager.NM_DEVICE_TYPE_WIFI:
+            if dev.DeviceType == NetworkManager.NM_DEVICE_TYPE_WIFI and dev.Mode == NetworkManager.NM_802_11_MODE_INFRA:
                 dev_available = False
                 for devcon in dev.AvailableConnections:
                     if devcon.uuid == conn.uuid:
