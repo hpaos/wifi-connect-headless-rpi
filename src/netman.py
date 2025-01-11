@@ -225,6 +225,7 @@ def connect_to_AP(conn_type=None, conn_name=GENERIC_CONNECTION_NAME, \
                        'phase2-auth': 'mschapv2'},
             'connection': {'id': conn_name,
                            'type': '802-11-wireless',
+                           'interface-name': 'wlan0',
                            'uuid': str(uuid.uuid4())},
             'ipv4': {'method': 'auto'},
             'ipv6': {'method': 'auto'}
@@ -236,6 +237,7 @@ def connect_to_AP(conn_type=None, conn_name=GENERIC_CONNECTION_NAME, \
                                 'ssid': ssid},
             'connection': {'id': conn_name,
                            'type': '802-11-wireless',
+                           'interface-name': 'wlan0',
                            'uuid': str(uuid.uuid4())},
             'ipv4': {'method': 'auto'},
             'ipv6': {'method': 'auto'}
@@ -250,6 +252,7 @@ def connect_to_AP(conn_type=None, conn_name=GENERIC_CONNECTION_NAME, \
                 {'key-mgmt': 'wpa-psk', 'psk': password},
             'connection': {'id': conn_name,
                         'type': '802-11-wireless',
+                        'interface-name': 'wlan0',
                         'uuid': str(uuid.uuid4())},
             'ipv4': {'method': 'auto'},
             'ipv6': {'method': 'auto'}
